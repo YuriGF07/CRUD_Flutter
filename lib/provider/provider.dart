@@ -2,9 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:projeto/user/user.dart';
 
 class UserProvider extends InheritedWidget {
-  static const _baseUrl = 'https://crud-flutter-37fdc-default-rtdb.firebaseio.com/';
+  static const _baseUrl =
+      'https://crud-flutter-37fdc-default-rtdb.firebaseio.com/';
   final Widget child;
-  
+
   List<User> users = [];
   User? userSelected;
   int? indexUser;

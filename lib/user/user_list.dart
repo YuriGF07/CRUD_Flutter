@@ -8,7 +8,6 @@ class UserList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     UserProvider userProvider = UserProvider.of(context) as UserProvider;
 
     List<User> users = userProvider.users;
@@ -17,53 +16,56 @@ class UserList extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor:Color.fromARGB(255, 95, 169, 230),
+        backgroundColor: Color.fromARGB(255, 95, 169, 230),
         title: Text('Lista de Usuários'),
-        leading: BackButton(onPressed: (){
-          userProvider.indexUser = null;
-          Navigator.popAndPushNamed(context, "/create");
-        },
+        leading: BackButton(
+          onPressed: () {
+            userProvider.indexUser = null;
+            Navigator.popAndPushNamed(context, "/create");
+          },
         ),
       ),
       body: ContainerAll(
         child: ListView.builder(
-          itemCount: usersLength,
-          itemBuilder: (BuildContext contextBuilder, indexBuilder) =>
-          Container(
-            child: ListTile(
-              title: Text(users[indexBuilder].name),
-              trailing: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  IconButton(onPressed: (){
-                    userProvider.userSelected = users[indexBuilder];
-                    userProvider.indexUser = indexBuilder;
-                    Navigator.popAndPushNamed(context, "/create");
-                  },
-                  icon: Icon(Icons.edit, color: Colors.black,)
+            itemCount: usersLength,
+            itemBuilder: (BuildContext contextBuilder, indexBuilder) =>
+                Container(
+                  child: ListTile(
+                    title: Text(users[indexBuilder].name),
+                    trailing: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              userProvider.userSelected = users[indexBuilder];
+                              userProvider.indexUser = indexBuilder;
+                              Navigator.popAndPushNamed(context, "/create");
+                            },
+                            icon: Icon(
+                              Icons.edit,
+                              color: Colors.black,
+                            )),
+                        IconButton(
+                            onPressed: () {
+                              userProvider.userSelected = users[indexBuilder];
+                              userProvider.indexUser = indexBuilder;
+                              Navigator.popAndPushNamed(context, "/view");
+                            },
+                            icon: Icon(Icons.visibility,
+                                color: Colors.lightBlue)),
+                        IconButton(
+                            onPressed: () {
+                              userProvider.indexUser = null;
+                              userProvider.users.removeAt(indexBuilder);
+                              Navigator.popAndPushNamed(context, "/create");
+                            },
+                            icon: Icon(Icons.delete, color: Colors.red))
+                      ],
+                    ),
                   ),
-                  IconButton(onPressed: (){
-                    userProvider.userSelected = users[indexBuilder];
-                    userProvider.indexUser = indexBuilder;
-                    Navigator.popAndPushNamed(context, "/view");
-                  },
-                  icon: Icon(Icons.visibility, color: Colors.lightBlue)
-                  ),
-                  IconButton(onPressed: (){
-                    userProvider.indexUser = null;
-                    userProvider.users.removeAt(indexBuilder);
-                    Navigator.popAndPushNamed(context, "/create");
-                  },
-                  icon: Icon(Icons.delete, color: Colors.red)
-                  )
-                ],
-              ),
-            ),
-            decoration: BoxDecoration(
-              border: Border(bottom: BorderSide(width: 0.4))
-            ),
-          )
-        ),
+                  decoration: BoxDecoration(
+                      border: Border(bottom: BorderSide(width: 0.4))),
+                )),
       ),
     );
   }

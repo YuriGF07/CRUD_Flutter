@@ -12,7 +12,6 @@ class UserForm extends StatefulWidget {
 }
 
 class _UserFormState extends State<UserForm> {
-
   String title = "Criar Usuário";
   String child = "Registrar";
 
@@ -20,11 +19,8 @@ class _UserFormState extends State<UserForm> {
   TextEditingController controllerEmail = TextEditingController();
   TextEditingController controllerPassword = TextEditingController();
 
-
-
   @override
   Widget build(BuildContext context) {
-
     UserProvider userProvider = UserProvider.of(context) as UserProvider;
 
     int? index;
@@ -42,11 +38,10 @@ class _UserFormState extends State<UserForm> {
 
     GlobalKey<FormState> _key = GlobalKey();
 
-    void save(){
-
+    void save() {
       final isValidate = _key.currentState?.validate();
 
-      if(isValidate == false){
+      if (isValidate == false) {
         return;
       }
 
@@ -54,17 +49,16 @@ class _UserFormState extends State<UserForm> {
 
       //instancia um novo usuario
       User user = User(
-      name: controllerName.text, 
-      email: controllerEmail.text, 
-      password: controllerPassword.text
-      );
-      if(index != null){
-      userProvider.users[index] = user;
-      } else{
-      int usersLength = userProvider.users.length;
+          name: controllerName.text,
+          email: controllerEmail.text,
+          password: controllerPassword.text);
+      if (index != null) {
+        userProvider.users[index] = user;
+      } else {
+        int usersLength = userProvider.users.length;
 
-      //salva um novo usuario
-      userProvider.users.insert(0, user);
+        //salva um novo usuario
+        userProvider.users.insert(0, user);
       }
       Navigator.popAndPushNamed(context, "/list");
     }
@@ -76,11 +70,10 @@ class _UserFormState extends State<UserForm> {
           Container(
             child: TextButton(
               style: TextButton.styleFrom(
-              backgroundColor: Colors.blue,
-              primary: const Color.fromARGB(255, 0, 0, 0)
-              ),
+                  backgroundColor: Colors.blue,
+                  primary: const Color.fromARGB(255, 0, 0, 0)),
               child: Text('Lista de Usuários'),
-              onPressed: (){
+              onPressed: () {
                 Navigator.popAndPushNamed(context, "/list");
               },
             ),
@@ -95,31 +88,33 @@ class _UserFormState extends State<UserForm> {
             child: Column(
               children: [
                 FieldForm(
-                label: 'Name', 
-                isPassword: false, 
-                controller: controllerName,
-                isEmail: false
-                ), 
+                    label: 'Name',
+                    isPassword: false,
+                    controller: controllerName,
+                    isEmail: false),
                 FieldForm(
-                label: 'Email', 
-                isPassword: false, 
-                controller: controllerEmail,
-                isEmail: true
-                ),
+                    label: 'Email',
+                    isPassword: false,
+                    controller: controllerEmail,
+                    isEmail: true),
                 FieldForm(
-                label: 'Password', 
-                isPassword: true, 
-                controller: controllerPassword,
-                isEmail: false
-                ),
+                    label: 'Password',
+                    isPassword: true,
+                    controller: controllerPassword,
+                    isEmail: false),
                 SizedBox(
                   width: double.infinity,
                   child: TextButton(
-                    onPressed: () {save();}, 
+                    onPressed: () {
+                      save();
+                    },
                     child: Text(this.child),
                     style: ButtonStyle(
-                      backgroundColor: MaterialStateProperty.all(Color.fromARGB(255, 95, 169, 230),),
-                      foregroundColor: MaterialStateProperty.all(const Color.fromARGB(255, 0, 0, 0)),
+                      backgroundColor: MaterialStateProperty.all(
+                        Color.fromARGB(255, 95, 169, 230),
+                      ),
+                      foregroundColor: MaterialStateProperty.all(
+                          const Color.fromARGB(255, 0, 0, 0)),
                     ),
                   ),
                 )
